@@ -22,6 +22,8 @@
 \RequirePackage{listings}
 %Adds additional symbols such as \danger
 \RequirePackage{fourier}
+%Adds additional colors
+\RequirePackage{color}
 
 % ---------------------------------------
 %	Theme customization
@@ -62,14 +64,19 @@
 \logo{\includegraphics[height=1cm]{illustrations/logo_clic.eps}}
 
 %Options for listings package
+\definecolor{darkgreen}{rgb}{0,0.6,0}
 \lstset
 {
     language=[LaTeX]TeX,
     breaklines=true,
     basicstyle=\tt\scriptsize,
+    texcsstyle=*\color{blue},
     inputencoding=utf8,
-    %keywordstyle=\color{blue},
-    %identifierstyle=\color{red}
+    keywordstyle=\color{darkgreen},
+    keywords={$},
+	otherkeywords={$, \{, \}, \[, \]},
+    commentstyle=\color{red},
+    literate={é}{{\'e}}1 {è}{{\`e}}1 {à}{{\`a}}1 {ç}{{\c{c}}}1 {œ}{{\oe}}1 {ù}{{\`u}}1 {É}{{\'E}}1 {È}{{\`E}}1 {À}{{\`A}}1 {Ç}{{\c{C}}}1 {Œ}{{\OE}}1 {Ê}{{\^E}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
 }
 
 %
