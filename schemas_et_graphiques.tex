@@ -1,6 +1,9 @@
 \documentclass{clic_latex_beamer}
 \usepackage{tikz}
+\usepackage{pgfplots}
 \usepackage{multicol}
+
+\pgfplotsset{width=7cm,compat=1.10}
 
 \newcommand{\TikZ}{Ti\textit{k}Z }
 
@@ -17,7 +20,22 @@
 
 \begin{frame}
 \frametitle{Table des matières}
+\begin{multicols}{2}
 \tableofcontents[]
+\end{multicols}
+\end{frame}
+
+%----------------------
+%	Références
+%----------------------
+ 
+\begin{frame}
+\frametitle{Références}
+\begin{itemize}
+\item \href{http://paws.wcu.edu/tsfoguel/tikzpgfmanual.pdf }{\TikZ and PGF, Manual for version 1.18.\\Par Till Tantau (créateur de TikZ)}
+\item \href{http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf}{\textbf{\TikZ pour l’impatient}.\\Par Gérard Tisseau et Jacques Duma (en français)}
+\item \href{http://pgfplots.sourceforge.net/pgfplots.pdf}{Manual for Package \uppercase{pgfplots}\\Par Dr. Christian Feuersänger}
+\end{itemize}
 \end{frame}
 
 %----------------------
@@ -53,7 +71,7 @@ Inconvéninents
 \end{frame}
  
 %----------------------------
-%	II - Figures simples
+%	II - Figures simples (chap 1 et 2 de TikZ pour l'impatient)
 %----------------------------
 
 \section{Figures simples}
@@ -72,7 +90,7 @@ Inconvéninents
 \end{lstlisting}
 \end{frame}
  
-\subsection{Tracer un cerlce}
+\subsection{\textbackslash draw}
 \begin{frame}[fragile]
 \frametitle{Tracer un cercle}
 Voici un cercle
@@ -209,26 +227,96 @@ Les schémas sont centrés sur les dessins et non pas sur l'origine du système 
 \end{multicols}
 \end{frame}
 
-
-\subsection{Tracer un segment}
 \begin{frame}[fragile]
 \frametitle{Tracer un segment}
 
-\begin{multicols}{2}
 \begin{tikzpicture}
 	\draw (0,0) -- (1,0);
 \end{tikzpicture}
 
+\begin{lstlisting}
+\draw (0,0) -- (1,0);
+\end{lstlisting}
+
 \pause
 
-\begin{lstlisting}
 \begin{tikzpicture}
-    \draw (0,0) -- (1,0);
+	\draw [thick, dashed] (0,0) -- (1,0);
 \end{tikzpicture}
+
+\begin{lstlisting}
+\draw [thick, dashed] (0,0) -- (1,0);
+\end{lstlisting}
+
+\begin{tikzpicture}
+	\draw [dotted ,->] (0,0) -- (1,0);
+\end{tikzpicture}
+
+\begin{lstlisting}
+\draw [dotted, ->] (0,0) -- (1,0);
+\end{lstlisting}
+
+Voir les références pour plus d'options
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tracer un arc de cercle ou un rectangle}
+
+\begin{multicols}{2}
+\begin{tikzpicture}
+	\draw (0,0) arc (0:90:1);
+\end{tikzpicture}
+
+\begin{lstlisting}
+\draw (0,0) arc (0:90:1);
 \end{lstlisting}
 
 \columnbreak
 \pause
+
+\begin{tikzpicture}
+	\draw (0,0) rectangle (2,1);
+\end{tikzpicture}
+
+
+\begin{lstlisting}
+\draw (0,0) rectangle (1,2);
+\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tracer une grille}
+
+\begin{multicols}{2}
+\begin{lstlisting}
+\draw (0,0) grid (4,3);
+\end{lstlisting}
+
+\begin{tikzpicture}
+\draw (0,0) grid (4,3);
+\end{tikzpicture}
+
+\columnbreak
+\pause
+
+\begin{lstlisting}
+\draw [very thin, gray] (0,0) grid[step=0.5] (4,3);
+\end{lstlisting}
+
+\begin{tikzpicture}
+\draw [very thin, gray] (0,0) grid[step=0.5] (4,3);
+\end{tikzpicture}
+
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Combinaison de dessins}
 
 \begin{tikzpicture}
 	\draw (0,0) circle (1);
@@ -236,32 +324,25 @@ Les schémas sont centrés sur les dessins et non pas sur l'origine du système 
 	\draw (0,0) -- (1,0);
 \end{tikzpicture}
 
-\pause
 
 \begin{lstlisting}
-\begin{tikzpicture}
-    \draw (0,0) circle (1);
-    \draw (0,0) -- (0,1);
-    \draw (0,0) -- (1,0);
-\end{tikzpicture}
+\draw (0,0) circle (1);
+\draw (0,0) -- (0,1);
+\draw (0,0) -- (1,0);
 \end{lstlisting}
 
-\end{multicols}
 \end{frame}
 
-\subsection{Tracer un arc de cercle}
 \begin{frame}[fragile]
-\frametitle{Tracer un arc de cercle}
+\frametitle{Enchainements de dessins}
 \centering
 
 \begin{tikzpicture}
-	\draw (0,0) arc (0:90:1);
+	\draw (0,0) -- (0,1) arc (180:0:1) -- (4,0) rectangle (6,-2) -- (8,-1) circle(1) -- (6,2);
 \end{tikzpicture}
 
 \begin{lstlisting}
-\begin{tikzpicture}
-	\draw (0,0) arc (0:90:1);
-\end{tikzpicture}
+\draw (0,0) -- (0,1) arc (180:0:1) -- (4,0) rectangle (6,-2) -- (8,-1) circle(1) -- (6,2);
 \end{lstlisting}
 
 \end{frame}
@@ -283,14 +364,12 @@ Les schémas sont centrés sur les dessins et non pas sur l'origine du système 
 \pause
 
 \begin{lstlisting}
-\begin{tikzpicture}
-    \draw (0,0) circle (1);
-    \draw (0,0) -- (0,1);
-    \draw (0,0) -- (1,0);
-    \draw (0,0) node[below left]{$O$};
-    \draw (0,1) node[above]{$A$};
-    \draw (1,0) node[right]{$B$};
-\end{tikzpicture}
+\draw (0,0) circle (1);
+\draw (0,0) -- (0,1);
+\draw (0,0) -- (1,0);
+\draw (0,0) node[below left]{$O$};
+\draw (0,1) node[above]{$A$};
+\draw (1,0) node[right]{$B$};
 \end{lstlisting}
 
 \end{frame}
@@ -308,22 +387,233 @@ Les schémas sont centrés sur les dessins et non pas sur l'origine du système 
 \end{tikzpicture}
 
 \begin{lstlisting}
-\begin{tikzpicture}
-    \draw (1,0) arc (0:135:1);
-    \draw (0,0) -- (-1.5,1.5);
-    \draw (0,0) -- (2,0);
-    \draw (0,0) node[below left]{$O$};
-    \draw (70:1) node[above right]{$\frac{3\pi}{4}$};
-\end{tikzpicture}
+\draw (1,0) arc (0:135:1);
+\draw (0,0) -- (-1.5,1.5);
+\draw (0,0) -- (2,0);
+\draw (0,0) node[below left]{$O$};
+\draw (70:1) node[above right]{$\frac{3\pi}{4}$};
 \end{lstlisting} 
 
 \end{frame}
  
 %----------------------------
-%	II - Chemins et options graphiques
+%	III - Graphiques (chap 3 et 5 de TikZ pour l'impatient)
 %----------------------------
 
-\section{Chemins et options graphiques}
+\section{Graphiques}
+\subsection{plot}
+\begin{frame}[fragile]
+\frametitle{Tracer une courbe linéaire}
+$y=\frac{x}{4} \Rightarrow$ Équations paramétriques : $ x=x, y=\frac{x}{4}$
+
+\pause
+
+\begin{lstlisting}
+\draw plot (\x, \x/4);
+\end{lstlisting}
+
+\pause
+
+\begin{tikzpicture}
+	\draw plot (\x, \x/4);
+\end{tikzpicture}
+
+\pause
+
+\begin{block}{Par défaut}
+ Domaine de -5 à 5.
+\end{block}
+
+\end{frame}
+
+\subsection{Domaine}
+\begin{frame}[fragile]
+\frametitle{Domaine}
+
+\begin{lstlisting}
+\draw [domain=-2:2] plot (\x, \x/4);
+\end{lstlisting}
+
+\begin{tikzpicture}
+	\draw [domain=-2:2] plot (\x, \x/4);
+\end{tikzpicture}
+
+\end{frame}
+
+\subsection{Fonctions}
+\begin{frame}[fragile]
+\frametitle{Fonctions}
+
+Des fonctions standard sont incluses.
+
+\begin{alertblock}{Attention}
+ Si des formules contiennent des parenthèses ou des virgules, il faut les écrire entre accolades.\end{alertblock}
+
+\begin{lstlisting}
+\draw [domain=-3:1.5] plot (\x, {exp(\x)});
+\end{lstlisting}
+
+\begin{tikzpicture}[scale=.5]
+\draw [domain=-3:1.5] plot (\x, {exp(\x)});
+\end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Fonctions}
+
+\begin{alertblock}{Attention}
+Les fonctions trigonométriques attendent des angles en degrés. Il faut spécifier si l'on souhaite des angles en radiant
+\end{alertblock}
+
+\begin{lstlisting}
+\draw [domain=-pi:pi] plot (\x, {sin(\x r)});
+\end{lstlisting}
+
+\begin{tikzpicture}[scale=1.5]
+\draw [domain=-pi:pi] plot (\x, {sin(\x r)});
+\end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Précision}
+
+\begin{block}{Par défaut}
+Calcul de 25 points sur la courbe.
+\end{block}
+
+\pause
+
+\begin{lstlisting}
+\draw [domain=-pi:pi] plot (\x, {sin(5*\x r)});
+\end{lstlisting}
+
+\begin{tikzpicture}[scale=1.5]
+\draw [domain=-pi:pi] plot (\x, {sin(5*\x r)});
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Précision}
+
+\begin{lstlisting}
+\draw [domain=-pi:pi,samples=200] plot (\x, {sin(5*\x r)});
+\end{lstlisting}
+
+\pause
+
+\begin{tikzpicture}[scale=1.5]
+\draw [domain=-pi:pi,samples=200] plot (\x, {sin(5*\x r)});
+\end{tikzpicture}
+
+\end{frame}
+
+\subsection{Axes et grille}
+\begin{frame}[fragile]
+\frametitle{Axes et grilles}
+
+\begin{tikzpicture}
+ \draw [very thin, gray] (0,0) grid (8,4);
+ \draw [->] (0,0) -- (0,4);
+ \draw [->] (0,0) -- (8,0);
+ \draw (0,0) node[below left] {0};
+ \draw (0,4) node[left] {4};
+ \draw (8,0) node[below] {8};
+ \draw (0,4) node[above] {$y$};
+ \draw (8,0) node[right] {$x$};
+ \draw (1.5,1.5) node[below] {$\frac{1}{x}$};
+ \draw [domain=0.25:8,samples=200,red] plot (\x, 1/\x);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Axes et grilles}
+
+\begin{lstlisting}
+\draw [very thin, gray] (0,0) grid (8,4);
+\draw [->] (0,0) -- (0,4);
+\draw [->] (0,0) -- (8,0);
+\draw (0,0) node[below left] {0};
+\draw (0,4) node[left] {4};
+\draw (8,0) node[below] {8};
+\draw (0,4) node[above] {$y$};
+\draw (8,0) node[right] {$x$};
+\draw (1.5,1.5) node[below] {$\frac{1}{x}$};
+\draw [domain=0.25:8,samples=200,red] plot (\x, 1/\x);
+\end{lstlisting}
+
+Un peu compliqué pour simplement afficher une grille, des axes et les unités ...
+
+\end{frame}
+
+\subsection{PGFPlots}
+\begin{frame}[fragile]
+\frametitle{PGFPlots}
+\begin{itemize}
+\item Un package basé sur PGF/\TikZ
+
+\item Simplifie l'insertion de graphiques
+
+\item \begin{lstlisting}
+\usepackage{pgfplots}
+\end{lstlisting}
+
+\item Toujours entre
+
+\begin{lstlisting}
+\begin{tikzpicture}...\end{tikzpicture}
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple de PGFPlots}
+
+\begin{tikzpicture}\begin{axis}[   title={$y=\frac{1}{x}$},   xlabel={$x$},   ylabel={$y$},]   \addplot[
+   domain=0.25:8,
+   samples=200,
+   red,
+]
+   {1/x};\end{axis}\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple de PGFPlots}
+
+\begin{lstlisting}
+\begin{axis}[title={$y=\frac{1}{x}$}, xlabel={$x$},
+             ylabel={$y$}]   \addplot[domain=0.25:8, samples=200, red]{1/x};\end{axis}\end{lstlisting}
+
+\end{frame}
+
+
+\subsection{Représentation de données}
+\begin{frame}[fragile]
+\frametitle{Représentation de données}
+
+\begin{lstlisting}
+\draw plot coordinates {(0,0) (1,0) (2,2) (3,0) (4,6) (5,4) (6,7) (7,4) (8,3) (9,0) (10,1)};
+\end{lstlisting}
+
+\begin{tikzpicture}[scale=.7]
+ \draw plot coordinates {(0,0) (1,0) (2,2) (3,0) (4,6) (5,4) (6,7) (7,4) (8,3) (9,0) (10,1)};
+\end{tikzpicture}
+
+\end{frame}
+
+
+%----------------------------
+%	IV - Graphes (chap 6 de TikZ pour l'impatient)
+%----------------------------
+
+\section{Graphes}
 \begin{frame}[fragile]
 \frametitle{}
 
@@ -339,16 +629,6 @@ Les schémas sont centrés sur les dessins et non pas sur l'origine du système 
 \begin{center}
 \Huge Des questions ?
 \end{center}
-\end{frame}
- 
-\begin{frame}
-\frametitle{Références}
-\begin{itemize}
-\item \href{http://paws.wcu.edu/tsfoguel/tikzpgfmanual.pdf }{TikZ and PGF, Manual for version 1.18.\\Par Till Tantau (créateur de TikZ)}
-\item \href{http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf}{TikZ pour l’impatient.\\Par Gérard Tisseau et Jacques Duma (en français)}
-\item \href{http://www.math.uni-leipzig.de/~hellmund/LaTeX/pgf-tut.pdf}{PGF/TikZ - Graphics for LaTeX, A tutorial.\\Par Meik Hellmund (slides)}
-\item \href{https://www.coga.tu-berlin.de/fileadmin/i26/download/AG_DiskAlg/FG_KombOptGraphAlg/kappmeier/How_to_TikZ_-_current.pdf}{How to TikZ? An Overview.\\Par Jan-Philipp Kappmeier (slides)}
-\end{itemize}
 \end{frame}
 
 
