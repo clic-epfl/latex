@@ -1,6 +1,7 @@
 \documentclass{clic_latex_beamer}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{pgf-pie}
 \usepackage{multicol}
 
 \pgfplotsset{width=7cm,compat=1.10}
@@ -32,9 +33,10 @@
 \begin{frame}
 \frametitle{Références}
 \begin{itemize}
-\item \href{http://paws.wcu.edu/tsfoguel/tikzpgfmanual.pdf }{\TikZ and PGF, Manual for version 1.18.\\Par Till Tantau (créateur de TikZ)}
-\item \href{http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf}{\textbf{\TikZ pour l’impatient}.\\Par Gérard Tisseau et Jacques Duma (en français)}
-\item \href{http://pgfplots.sourceforge.net/pgfplots.pdf}{Manual for Package \uppercase{pgfplots}\\Par Dr. Christian Feuersänger}
+\item \href{http://paws.wcu.edu/tsfoguel/tikzpgfmanual.pdf }{\emph{\TikZ and PGF, Manual for version 1.18}\\ Par Till Tantau (créateur de TikZ)}
+\item \href{http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf}{\emph{\textbf{\TikZ pour l’impatient}}\\ Par Gérard Tisseau et Jacques Duma (en français)}
+\item \href{http://pgfplots.sourceforge.net/pgfplots.pdf}{\emph{Manual for Package \uppercase{pgfplots}}\\ Par Dr. Christian Feuersänger}
+\item \href{http://pgf-pie.googlecode.com/git/release/pgf-pie-0.2/pgf-pie-manual.pdf}{\emph{Drawing Pie Chart by using pgf-pie}\\ Par Yuan Xu}
 \end{itemize}
 \end{frame}
 
@@ -597,14 +599,189 @@ Un peu compliqué pour simplement afficher une grille, des axes et les unités .
 \subsection{Représentation de données}
 \begin{frame}[fragile]
 \frametitle{Représentation de données}
+Peut se faire sans PGFPlots, mais c'est aussi plus facile avec.
 
-\begin{lstlisting}
-\draw plot coordinates {(0,0) (1,0) (2,2) (3,0) (4,6) (5,4) (6,7) (7,4) (8,3) (9,0) (10,1)};
-\end{lstlisting}
+\pause
+
+\begin{multicols}{2}
+\begin{tikzpicture}[scale=.7]\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]\addplot table {example_data/data_d1.dat};\end{loglogaxis}\end{tikzpicture}
+
+\columnbreak
+
+\begin{lstlisting}\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]\addplot table {example_data/data_d1.dat};\end{loglogaxis}\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Représentation de données}
+\begin{multicols}{2}
+\begin{tikzpicture}[scale=.7]\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{tikzpicture}
+
+\columnbreak
+
+\begin{lstlisting}\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]
+
+\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Légende}
+\begin{multicols}{2}
+\begin{tikzpicture}[scale=.7]\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},    legend entries={$d=2$,$d=3$,$d=4$},]\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{tikzpicture}
+
+\columnbreak
+
+\begin{lstlisting}\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},    legend entries={$d=2$,$d=3$,$d=4$},]\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Barres d'erreurs}
+\begin{multicols}{2}
+\begin{tikzpicture}[scale=.7]
+\begin{axis}\addplot+[error bars/.cd,    y dir=both,y explicit,    x dir=both,x explicit,]coordinates {    (0,0)     +- (0.5,0.1)    (0.1,0.1) +- (0.05,0.2)    (0.2,0.2) +- (0,0.05)    (0.5,0.5) +- (0.1,0.2)    (1,1)     +- (0.3,0.1)};\end{axis}\end{tikzpicture}
+
+\columnbreak
+
+\begin{lstlisting}\begin{axis}\addplot+[error bars/.cd,    y dir=both,y explicit,    x dir=both,x explicit,]coordinates {    (0,0)     +- (0.5,0.1)    (0.1,0.1) +- (0.05,0.2)    (0.2,0.2) +- (0,0.05)    (0.5,0.5) +- (0.1,0.2)    (1,1)     +- (0.3,0.1)};\end{axis}\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+\section{Diagrammes}
+\subsection{Diagramme en bâtons}
+\begin{frame}[fragile]
+\frametitle{Diagramme en bâtons}
+Toujours avec PGFPlots.
+\begin{multicols}{2}
 
 \begin{tikzpicture}[scale=.7]
- \draw plot coordinates {(0,0) (1,0) (2,2) (3,0) (4,6) (5,4) (6,7) (7,4) (8,3) (9,0) (10,1)};
-\end{tikzpicture}
+\begin{axis}[ybar]\addplot coordinates{(0,4) (1,1) (2,2) (3,5) (4,6) (5,1)};\end{axis}\end{tikzpicture}
+
+\columnbreak
+
+\begin{lstlisting}\begin{axis}[ybar]
+
+
+\addplot
+    coordinates{(0,4) (1,1)
+                (2,2) (3,5)
+                (4,6) (5,1)};\end{axis}\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Diagramme en bâtons}
+Toujours avec PGFPlots.
+\begin{multicols}{2}
+
+\begin{tikzpicture}[scale=.7]
+\begin{axis}[ybar, symbolic x coords={A,B,C,D,E,F}]\addplot coordinates{(A,4) (B,1) (C,2) (D,5) (E,6) (F,1)};\end{axis}\end{tikzpicture}
+
+\columnbreak
+
+\begin{lstlisting}
+\begin{axis}[ybar,
+    symbolic x coords={A,B,C,D,E,F}]
+    \addplot
+    coordinates{(A,4) (B,1)
+                (C,2) (D,5)
+                (E,6) (F,1)};\end{axis}\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Diagramme en bâtons}
+Toujours avec PGFPlots.
+\begin{multicols}{2}
+
+\begin{tikzpicture}[scale=.7]
+\begin{axis}[ybar, symbolic x coords={A,B,C,D,E,F}, xtick=data]\addplot coordinates{(A,4) (B,1) (C,2) (D,5) (E,6) (F,1)};\end{axis}\end{tikzpicture}
+
+\columnbreak
+
+\begin{lstlisting}
+\begin{axis}[ybar,
+    symbolic x coords={A,B,C,D,E,F},
+    xtick=data]\addplot
+    coordinates{(A,4) (B,1)
+                (C,2) (D,5)
+                (E,6) (F,1)};\end{axis}\end{lstlisting}
+
+\end{multicols}
+
+\end{frame}
+
+\subsection{Diagramme circulaire}
+\begin{frame}[fragile]
+\frametitle{Diagramme circulaire}
+Avec le package pgf-pie.
+\begin{lstlisting}
+\usepackage{pgf-pie}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Diagramme circulaire}
+
+\begin{tikzpicture}[scale=.8]
+\pie[text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+
+
+\begin{lstlisting}
+\pie[text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Diagramme circulaire}
+Pas que circulaire
+
+\begin{tikzpicture}[scale=.8]
+\pie[square, text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+
+
+\begin{lstlisting}
+\pie[square, text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Diagramme circulaire}
+Pas que circulaire
+
+\begin{tikzpicture}[scale=.8]
+\pie[polar, text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+
+
+\begin{lstlisting}
+\pie[polar, text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Diagramme circulaire}
+Pas que circulaire
+
+\begin{tikzpicture}[scale=.8]
+\pie[cloud, text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+
+
+\begin{lstlisting}
+\pie[cloud, text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
 
 \end{frame}
 
@@ -621,8 +798,14 @@ Un peu compliqué pour simplement afficher une grille, des axes et les unités .
   
  
 %------------------------------------------
-%	Questions et Références
+%	Exemples et Questions
 %------------------------------------------
+ 
+
+\begin{frame}
+\frametitle{Ressources}
+De nombreux exemples sur \href{http://www.texample.net/tikz/examples}{texample.net/tikz/examples}
+\end{frame}
  
 \begin{frame}
 \frametitle{Questions ?}
