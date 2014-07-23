@@ -6,11 +6,11 @@
 
 \pgfplotsset{width=7cm,compat=1.10}
 
-\newcommand{\TikZ}{Ti\textit{k}Z }
+\newcommand{\TikZ}{Ti\textit{k}Z}
 
 \begin{document}
 
-\title{Schémas et graphiques en \LaTeX\ avec \TikZ}
+\title{Schémas et graphiques en \LaTeX{} avec \TikZ}
 \author{David Sandoz}
 \date{\today}
 \institute{École Polytechnique Fédérale de Lausanne}
@@ -33,8 +33,8 @@
 \begin{frame}
 \frametitle{Références}
 \begin{itemize}
-\item \href{http://paws.wcu.edu/tsfoguel/tikzpgfmanual.pdf }{\emph{\TikZ and PGF, Manual for version 1.18}\\ Par Till Tantau (créateur de TikZ)}
-\item \href{http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf}{\emph{\textbf{\TikZ pour l’impatient}}\\ Par Gérard Tisseau et Jacques Duma (en français)}
+\item \href{http://paws.wcu.edu/tsfoguel/tikzpgfmanual.pdf }{\emph{\TikZ{} and PGF, Manual for version 1.18}\\ Par Till Tantau (créateur de TikZ)}
+\item \href{http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf}{\emph{\textbf{\TikZ{} pour l’impatient}}\\ Par Gérard Tisseau et Jacques Duma (en français)}
 \item \href{http://pgfplots.sourceforge.net/pgfplots.pdf}{\emph{Manual for Package \uppercase{pgfplots}}\\ Par Dr. Christian Feuersänger}
 \item \href{http://pgf-pie.googlecode.com/git/release/pgf-pie-0.2/pgf-pie-manual.pdf}{\emph{Drawing Pie Chart by using pgf-pie}\\ Par Yuan Xu}
 \end{itemize}
@@ -116,11 +116,11 @@ en guise de premier exemple
 \frametitle{Différents placements}
 \begin{multicols}{2}
 Voici un cercle
-\begin{center}
+
 \begin{tikzpicture}
 \draw (0,0) circle (1);
 \end{tikzpicture}
-\end{center}
+
 en guise de premier exemple
 \columnbreak
 
@@ -128,11 +128,11 @@ en guise de premier exemple
 
 \begin{lstlisting}
 Voici un cercle
-\begin{center}
-    \begin{tikzpicture}
-        \draw (0,0) circle (1);
-    \end{tikzpicture}
-\end{center}
+
+\begin{tikzpicture}
+    \draw (0,0) circle (1);
+\end{tikzpicture}
+    
 en guise de premier exemple
 \end{lstlisting}
 
@@ -259,6 +259,27 @@ Les schémas sont centrés sur les dessins et non pas sur l'origine du système 
 \end{lstlisting}
 
 Voir les références pour plus d'options
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{\textbackslash coordinate(nom) at (x,y)}}
+Il peut être plus agréable d'avoir des points avec des noms.
+
+\begin{lstlisting}
+\coordinate (A) at (2,3);
+\coordinate (B) at (5,1);
+\draw (A) -- (B);
+\end{lstlisting}
+
+\pause
+
+\begin{tikzpicture}
+    \coordinate (A) at (2,3);
+    \coordinate (B) at (5,1);
+	\draw (A) -- (B);
+\end{tikzpicture}
+
 
 \end{frame}
 
@@ -792,7 +813,57 @@ Pas que circulaire
 
 \section{Graphes}
 \begin{frame}[fragile]
-\frametitle{}
+\frametitle{Graphes}
+
+\begin{tikzpicture}
+ \node[draw] (L) at (0,0) {Lausanne}; \node[draw] (B) at (6,-1) {Bellinzone};
+ \node[draw] (N) at (2,2) {Neuchâtel};
+ \draw[->,>=latex] (L) to[bend right] (N); \draw[->,>=latex] (N) to[bend left] (B); \draw[->,>=latex] (B) to[bend left] (L);
+\end{tikzpicture}
+
+\end{frame}
+
+\subsection{Nœuds}
+\begin{frame}[fragile]
+\frametitle{Différence entre \texttt{\textbackslash coordinate} et \texttt{\textbackslash node}}
+
+\begin{lstlisting}
+\coordinate (L) at (0,0);
+\end{lstlisting}
+
+\pause
+
+Un point à utiliser avec \texttt{\textbackslash draw}, mais qui ne s'affiche pas.
+
+\pause
+\vspace{1cm}
+
+\begin{lstlisting}
+\node[draw] (L) at (0,0) {Lausanne};
+\end{lstlisting}
+
+\pause
+
+\begin{tikzpicture}
+\node[draw] (L) at (0,0) {Lausanne};
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Nœuds}
+
+\begin{tikzpicture}
+ \node[draw] (L) at (0,0) {Lausanne}; \node[draw] (B) at (6,-1) {Bellinzone};
+ \draw (L) -- (B);
+\end{tikzpicture}
+
+\pause
+
+\begin{lstlisting}
+\node[draw] (L) at (0,0) {Lausanne};\node[draw] (B) at (6,-1) {Bellinzone};
+\draw (L) -- (B);
+\end{lstlisting}
 
 \end{frame}
   
