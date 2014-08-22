@@ -4,6 +4,8 @@
 \usepackage{pgf-pie}
 \usepackage{multicol}
 
+\usetikzlibrary{shapes}
+
 \pgfplotsset{width=7cm,compat=1.10}
 
 \newcommand{\TikZ}{Ti\textit{k}Z}
@@ -19,11 +21,9 @@
 \frame{\titlepage}
 
 
-\begin{frame}
+\begin{frame}[allowframebreaks]{Outline}
 \frametitle{Table des matières}
-\begin{multicols}{2}
 \tableofcontents[]
-\end{multicols}
 \end{frame}
 
 %----------------------
@@ -251,11 +251,19 @@ Les schémas sont centrés sur les dessins et non pas sur l'origine du système 
 \end{lstlisting}
 
 \begin{tikzpicture}
-	\draw [dotted ,->] (0,0) -- (1,0);
+	\draw [dotted, ->] (0,0) -- (1,0);
 \end{tikzpicture}
 
 \begin{lstlisting}
 \draw [dotted, ->] (0,0) -- (1,0);
+\end{lstlisting}
+
+\begin{tikzpicture}
+	\draw [->, >=latex] (0,0) -- (1,0);
+\end{tikzpicture}
+
+\begin{lstlisting}
+\draw [->, >=latex] (0,0) -- (1,0);
 \end{lstlisting}
 
 Voir les références pour plus d'options
@@ -589,7 +597,9 @@ Un peu compliqué pour simplement afficher une grille, des axes et les unités .
 \item Toujours entre
 
 \begin{lstlisting}
-\begin{tikzpicture}...\end{tikzpicture}
+\begin{tikzpicture}
+...
+\end{tikzpicture}
 \end{lstlisting}
 \end{itemize}
 
@@ -598,12 +608,20 @@ Un peu compliqué pour simplement afficher une grille, des axes et les unités .
 \begin{frame}[fragile]
 \frametitle{Exemple de PGFPlots}
 
-\begin{tikzpicture}\begin{axis}[   title={$y=\frac{1}{x}$},   xlabel={$x$},   ylabel={$y$},]   \addplot[
+\begin{tikzpicture}
+\begin{axis}[
+   title={$y=\frac{1}{x}$},
+   xlabel={$x$},
+   ylabel={$y$},
+]
+   \addplot[
    domain=0.25:8,
    samples=200,
    red,
 ]
-   {1/x};\end{axis}\end{tikzpicture}
+   {1/x};
+\end{axis}
+\end{tikzpicture}
 
 \end{frame}
 
@@ -612,7 +630,10 @@ Un peu compliqué pour simplement afficher une grille, des axes et les unités .
 
 \begin{lstlisting}
 \begin{axis}[title={$y=\frac{1}{x}$}, xlabel={$x$},
-             ylabel={$y$}]   \addplot[domain=0.25:8, samples=200, red]{1/x};\end{axis}\end{lstlisting}
+             ylabel={$y$}]
+   \addplot[domain=0.25:8, samples=200, red]{1/x};
+\end{axis}
+\end{lstlisting}
 
 \end{frame}
 
@@ -625,11 +646,27 @@ Peut se faire sans PGFPlots, mais c'est aussi plus facile avec.
 \pause
 
 \begin{multicols}{2}
-\begin{tikzpicture}[scale=.7]\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]\addplot table {example_data/data_d1.dat};\end{loglogaxis}\end{tikzpicture}
+\begin{tikzpicture}[scale=.7]
+\begin{loglogaxis}[
+    title=Convergence Plot,
+    xlabel={Degrees of freedom},
+    ylabel={$L_2$ Error},
+]
+\addplot table {example_data/data_d1.dat};
+\end{loglogaxis}
+\end{tikzpicture}
 
 \columnbreak
 
-\begin{lstlisting}\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]\addplot table {example_data/data_d1.dat};\end{loglogaxis}\end{lstlisting}
+\begin{lstlisting}
+\begin{loglogaxis}[
+    title=Convergence Plot,
+    xlabel={Degrees of freedom},
+    ylabel={$L_2$ Error},
+]
+\addplot table {example_data/data_d1.dat};
+\end{loglogaxis}
+\end{lstlisting}
 
 \end{multicols}
 
@@ -638,13 +675,33 @@ Peut se faire sans PGFPlots, mais c'est aussi plus facile avec.
 \begin{frame}[fragile]
 \frametitle{Représentation de données}
 \begin{multicols}{2}
-\begin{tikzpicture}[scale=.7]\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{tikzpicture}
+\begin{tikzpicture}[scale=.7]
+\begin{loglogaxis}[
+    title=Convergence Plot,
+    xlabel={Degrees of freedom},
+    ylabel={$L_2$ Error},
+]
+\addplot table {example_data/data_d1.dat};
+\addplot table {example_data/data_d2.dat};
+\addplot table {example_data/data_d3.dat};
+\end{loglogaxis}
+\end{tikzpicture}
 
 \columnbreak
 
-\begin{lstlisting}\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},]
+\begin{lstlisting}
+\begin{loglogaxis}[
+    title=Convergence Plot,
+    xlabel={Degrees of freedom},
+    ylabel={$L_2$ Error},
+]
 
-\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{lstlisting}
+
+\addplot table {example_data/data_d1.dat};
+\addplot table {example_data/data_d2.dat};
+\addplot table {example_data/data_d3.dat};
+\end{loglogaxis}
+\end{lstlisting}
 
 \end{multicols}
 
@@ -653,11 +710,33 @@ Peut se faire sans PGFPlots, mais c'est aussi plus facile avec.
 \begin{frame}[fragile]
 \frametitle{Légende}
 \begin{multicols}{2}
-\begin{tikzpicture}[scale=.7]\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},    legend entries={$d=2$,$d=3$,$d=4$},]\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{tikzpicture}
+\begin{tikzpicture}[scale=.7]
+\begin{loglogaxis}[
+    title=Convergence Plot,
+    xlabel={Degrees of freedom},
+    ylabel={$L_2$ Error},
+    legend entries={$d=2$,$d=3$,$d=4$},
+]
+\addplot table {example_data/data_d1.dat};
+\addplot table {example_data/data_d2.dat};
+\addplot table {example_data/data_d3.dat};
+\end{loglogaxis}
+\end{tikzpicture}
 
 \columnbreak
 
-\begin{lstlisting}\begin{loglogaxis}[    title=Convergence Plot,    xlabel={Degrees of freedom},    ylabel={$L_2$ Error},    legend entries={$d=2$,$d=3$,$d=4$},]\addplot table {example_data/data_d1.dat};\addplot table {example_data/data_d2.dat};\addplot table {example_data/data_d3.dat};\end{loglogaxis}\end{lstlisting}
+\begin{lstlisting}
+\begin{loglogaxis}[
+    title=Convergence Plot,
+    xlabel={Degrees of freedom},
+    ylabel={$L_2$ Error},
+    legend entries={$d=2$,$d=3$,$d=4$},
+]
+\addplot table {example_data/data_d1.dat};
+\addplot table {example_data/data_d2.dat};
+\addplot table {example_data/data_d3.dat};
+\end{loglogaxis}
+\end{lstlisting}
 
 \end{multicols}
 
@@ -667,11 +746,36 @@ Peut se faire sans PGFPlots, mais c'est aussi plus facile avec.
 \frametitle{Barres d'erreurs}
 \begin{multicols}{2}
 \begin{tikzpicture}[scale=.7]
-\begin{axis}\addplot+[error bars/.cd,    y dir=both,y explicit,    x dir=both,x explicit,]coordinates {    (0,0)     +- (0.5,0.1)    (0.1,0.1) +- (0.05,0.2)    (0.2,0.2) +- (0,0.05)    (0.5,0.5) +- (0.1,0.2)    (1,1)     +- (0.3,0.1)};\end{axis}\end{tikzpicture}
+\begin{axis}
+\addplot+[error bars/.cd,
+    y dir=both,y explicit,
+    x dir=both,x explicit,
+]
+coordinates {
+    (0,0)     +- (0.5,0.1)
+    (0.1,0.1) +- (0.05,0.2)
+    (0.2,0.2) +- (0,0.05)
+    (0.5,0.5) +- (0.1,0.2)
+    (1,1)     +- (0.3,0.1)};
+\end{axis}
+\end{tikzpicture}
 
 \columnbreak
 
-\begin{lstlisting}\begin{axis}\addplot+[error bars/.cd,    y dir=both,y explicit,    x dir=both,x explicit,]coordinates {    (0,0)     +- (0.5,0.1)    (0.1,0.1) +- (0.05,0.2)    (0.2,0.2) +- (0,0.05)    (0.5,0.5) +- (0.1,0.2)    (1,1)     +- (0.3,0.1)};\end{axis}\end{lstlisting}
+\begin{lstlisting}
+\begin{axis}
+\addplot+[error bars/.cd,
+    y dir=both,y explicit,
+    x dir=both,x explicit,
+]
+coordinates {
+    (0,0)     +- (0.5,0.1)
+    (0.1,0.1) +- (0.05,0.2)
+    (0.2,0.2) +- (0,0.05)
+    (0.5,0.5) +- (0.1,0.2)
+    (1,1)     +- (0.3,0.1)};
+\end{axis}
+\end{lstlisting}
 
 \end{multicols}
 
@@ -684,17 +788,24 @@ Toujours avec PGFPlots.
 \begin{multicols}{2}
 
 \begin{tikzpicture}[scale=.7]
-\begin{axis}[ybar]\addplot coordinates{(0,4) (1,1) (2,2) (3,5) (4,6) (5,1)};\end{axis}\end{tikzpicture}
+\begin{axis}[ybar]
+\addplot coordinates{(0,4) (1,1) (2,2) (3,5) (4,6) (5,1)};
+\end{axis}
+\end{tikzpicture}
 
 \columnbreak
 
-\begin{lstlisting}\begin{axis}[ybar]
+\begin{lstlisting}
+\begin{axis}[ybar]
 
 
-\addplot
+
+\addplot
     coordinates{(0,4) (1,1)
                 (2,2) (3,5)
-                (4,6) (5,1)};\end{axis}\end{lstlisting}
+                (4,6) (5,1)};
+\end{axis}
+\end{lstlisting}
 
 \end{multicols}
 
@@ -707,17 +818,23 @@ Toujours avec PGFPlots.
 \begin{multicols}{2}
 
 \begin{tikzpicture}[scale=.7]
-\begin{axis}[ybar, symbolic x coords={A,B,C,D,E,F}]\addplot coordinates{(A,4) (B,1) (C,2) (D,5) (E,6) (F,1)};\end{axis}\end{tikzpicture}
+\begin{axis}[ybar, symbolic x coords={A,B,C,D,E,F}]
+\addplot coordinates{(A,4) (B,1) (C,2) (D,5) (E,6) (F,1)};
+\end{axis}
+\end{tikzpicture}
 
 \columnbreak
 
 \begin{lstlisting}
 \begin{axis}[ybar,
     symbolic x coords={A,B,C,D,E,F}]
-    \addplot
+    
+\addplot
     coordinates{(A,4) (B,1)
                 (C,2) (D,5)
-                (E,6) (F,1)};\end{axis}\end{lstlisting}
+                (E,6) (F,1)};
+\end{axis}
+\end{lstlisting}
 
 \end{multicols}
 
@@ -730,17 +847,23 @@ Toujours avec PGFPlots.
 \begin{multicols}{2}
 
 \begin{tikzpicture}[scale=.7]
-\begin{axis}[ybar, symbolic x coords={A,B,C,D,E,F}, xtick=data]\addplot coordinates{(A,4) (B,1) (C,2) (D,5) (E,6) (F,1)};\end{axis}\end{tikzpicture}
+\begin{axis}[ybar, symbolic x coords={A,B,C,D,E,F}, xtick=data]
+\addplot coordinates{(A,4) (B,1) (C,2) (D,5) (E,6) (F,1)};
+\end{axis}
+\end{tikzpicture}
 
 \columnbreak
 
 \begin{lstlisting}
 \begin{axis}[ybar,
     symbolic x coords={A,B,C,D,E,F},
-    xtick=data]\addplot
+    xtick=data]
+\addplot
     coordinates{(A,4) (B,1)
                 (C,2) (D,5)
-                (E,6) (F,1)};\end{axis}\end{lstlisting}
+                (E,6) (F,1)};
+\end{axis}
+\end{lstlisting}
 
 \end{multicols}
 
@@ -759,11 +882,13 @@ Avec le package pgf-pie.
 \frametitle{Diagramme circulaire}
 
 \begin{tikzpicture}[scale=.8]
-\pie[text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+\pie[text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{tikzpicture}
 
 
 \begin{lstlisting}
-\pie[text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
+\pie[text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{lstlisting}
 
 \end{frame}
 
@@ -772,11 +897,13 @@ Avec le package pgf-pie.
 Pas que circulaire
 
 \begin{tikzpicture}[scale=.8]
-\pie[square, text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+\pie[square, text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{tikzpicture}
 
 
 \begin{lstlisting}
-\pie[square, text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
+\pie[square, text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{lstlisting}
 
 \end{frame}
 
@@ -785,11 +912,13 @@ Pas que circulaire
 Pas que circulaire
 
 \begin{tikzpicture}[scale=.8]
-\pie[polar, text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+\pie[polar, text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{tikzpicture}
 
 
 \begin{lstlisting}
-\pie[polar, text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
+\pie[polar, text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{lstlisting}
 
 \end{frame}
 
@@ -798,11 +927,13 @@ Pas que circulaire
 Pas que circulaire
 
 \begin{tikzpicture}[scale=.8]
-\pie[cloud, text=inside]{10/A, 20/B, 30/C, 40/D}\end{tikzpicture}
+\pie[cloud, text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{tikzpicture}
 
 
 \begin{lstlisting}
-\pie[cloud, text=inside]{10/A, 20/B, 30/C, 40/D}\end{lstlisting}
+\pie[cloud, text=inside]{10/A, 20/B, 30/C, 40/D}
+\end{lstlisting}
 
 \end{frame}
 
@@ -816,14 +947,17 @@ Pas que circulaire
 \frametitle{Graphes}
 
 \begin{tikzpicture}
- \node[draw] (L) at (0,0) {Lausanne}; \node[draw] (B) at (6,-1) {Bellinzone};
+ \node[draw] (L) at (0,0) {Lausanne};
+ \node[draw] (C) at (6,1) {Coire};
  \node[draw] (N) at (2,2) {Neuchâtel};
- \draw[->,>=latex] (L) to[bend right] (N); \draw[->,>=latex] (N) to[bend left] (B); \draw[->,>=latex] (B) to[bend left] (L);
+ \draw[->,>=latex] (L) to[bend right] (N);
+ \draw[->,>=latex] (N) to[bend left] (B);
+ \draw[->,>=latex] (B) to[bend left] (L);
 \end{tikzpicture}
 
 \end{frame}
 
-\subsection{Nœuds}
+\subsection{Différence entre \texttt{\textbackslash coordinate} et \texttt{\textbackslash node}}
 \begin{frame}[fragile]
 \frametitle{Différence entre \texttt{\textbackslash coordinate} et \texttt{\textbackslash node}}
 
@@ -850,20 +984,184 @@ Un point à utiliser avec \texttt{\textbackslash draw}, mais qui ne s'affiche pa
 
 \end{frame}
 
+\subsection{Lier des nœuds}
 \begin{frame}[fragile]
-\frametitle{Nœuds}
+\frametitle{Lier des nœuds}
+
+\begin{lstlisting}
+\node[draw] (L) at (0,0) {Lausanne};
+\node[draw] (C) at (6,1) {Coire};
+\draw[<->,>=latex] (L) -- (B);
+\end{lstlisting}
+
+\pause
 
 \begin{tikzpicture}
- \node[draw] (L) at (0,0) {Lausanne}; \node[draw] (B) at (6,-1) {Bellinzone};
- \draw (L) -- (B);
+\node[draw] (L) at (0,0) {Lausanne};
+\node[draw] (C) at (6,1) {Coire};
+\draw[<->,>=latex] (L) -- (B);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lier des nœuds}
+
+\begin{tikzpicture}
+\node[draw] (L) at (0,0) {Lausanne};
+\node[draw] (C) at (6,1) {Coire};
+\node[draw] (N) at (2,2) {Neuchâtel};
+\end{tikzpicture}
+
+\begin{lstlisting}
+\node[draw] (L) at (0,0) {Lausanne};
+\node[draw] (C) at (6,1) {Coire};
+\node[draw] (N) at (2,2) {Neuchatel};
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lier des nœuds}
+
+\begin{tikzpicture}
+\node[draw] (L) at (0,0) {Lausanne};
+\node[draw] (C) at (6,1) {Coire};
+\node[draw] (N) at (2,2) {Neuchâtel};
+\draw[->,>=latex] (L) |- (N);
+\draw[->,>=latex] (N) -| (C);
+\draw[->,>=latex] (C) |- (L);
 \end{tikzpicture}
 
 \pause
 
 \begin{lstlisting}
-\node[draw] (L) at (0,0) {Lausanne};\node[draw] (B) at (6,-1) {Bellinzone};
-\draw (L) -- (B);
+\draw[->,>=latex] (L) |- (N);
+\draw[->,>=latex] (N) -| (C);
+\draw[->,>=latex] (C) |- (L);
 \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lier des nœuds}
+
+\begin{tikzpicture}
+\node[draw] (L) at (0,0) {Lausanne};
+\node[draw] (C) at (6,1) {Coire};
+\node[draw] (N) at (2,2) {Neuchâtel};
+\draw[->,>=latex] (L) to[bend right] (N);
+\draw[->,>=latex] (N) to[bend left] (C);
+\draw[->,>=latex] (C) to[bend left] (L);
+\end{tikzpicture}
+
+\pause
+
+\begin{lstlisting}
+\draw[->,>=latex] (L) to[bend right] (N);
+\draw[->,>=latex] (N) to[bend left] (C);
+\draw[->,>=latex] (C) to[bend left] (L);
+\end{lstlisting}
+
+\end{frame}
+
+\subsection{Décoration des nœuds}
+\begin{frame}[fragile]
+\frametitle{Décoration des nœuds}
+
+\begin{lstlisting}
+\usetikzlibrary{shapes}
+\end{lstlisting}
+
+\begin{tikzpicture}[scale=.8]
+\node[draw,rectangle,rounded corners=3pt] (L) at (0,0) {Lausanne};
+\node[draw,minimum height=1cm,dashed] (N) at (3,0) {Neuchâtel};
+\node[draw,diamond,aspect=2.5] (C) at (6,0) {Coire};
+\node[draw,ellipse] (G) at (9,0) {Genève};
+\node[draw,circle,fill=gray!50] (Z) at (12,0) {Berne};
+\end{tikzpicture}
+
+\pause
+
+\begin{lstlisting}
+\node[draw,rectangle,rounded corners=3pt] (L) at (0,0)
+                                           {Lausanne};
+\node[draw,minimum height=1cm,dashed] (N) at (3,0)
+                                          {Neuchatel};
+\node[draw,diamond,aspect=2.5] (C) at (6,0) {Coire};
+\node[draw,ellipse] (G) at (9,0) {Genève};
+\node[draw,circle,fill=gray!50] (B) at (12,0) {Berne};
+\end{lstlisting}
+
+\end{frame}
+
+\subsection{Abstraction des styles}
+\begin{frame}[fragile]
+\frametitle{Abstraction des styles}
+
+\begin{lstlisting}
+\tikzset{ville/.style={draw,rectangle,rounded corners=3pt}}
+\tikzset{capitale/.style={draw,ellipse,thick,fill=black!25}}
+\begin{tikzpicture}
+ \node[ville] (L) at (0,0) {Lausanne};
+ \node[ville] (N) at (1,2) {Neuchatel};
+ \node[ville] (C) at (8,1) {Coire};
+ \node[ville] (G) at (-1,-1) {Genève};
+ \node[capitale] (B) at (4,2) {Berne};
+\end{tikzpicture}
+\end{lstlisting}
+
+\pause
+
+\tikzset{ville/.style={draw,rectangle,rounded corners=3pt}}
+\tikzset{capitale/.style={draw,ellipse,thick,fill=black!25}}
+
+\begin{tikzpicture}[scale=.8]
+\node[ville] (L) at (0,0) {Lausanne};
+\node[ville] (N) at (1,2) {Neuchatel};
+\node[ville] (C) at (8,1) {Coire};
+\node[ville] (G) at (-1,-1) {Genève};
+\node[capitale] (B) at (4,2) {Berne};
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Abstraction des styles}
+
+\begin{lstlisting}
+\tikzset{radial/.style={very thick,->,>=stealth}}
+\tikzset{transversal/.style={<->,>=stealth,thick,dashed}}
+\begin{tikzpicture}
+ \draw[radial] (B) -- (L); \draw[radial] (B) -- (N);
+ \draw[radial] (B) -- (C); \draw[radial] (B) -- (G);
+ \draw[transversal] (N) -- (L);
+ \draw[transversal] (L) -- (G);
+ \draw[transversal] (G) -- (C);
+\end{tikzpicture}
+\end{lstlisting}
+
+\pause
+
+\tikzset{ville/.style={draw,rectangle,rounded corners=3pt}}
+\tikzset{capitale/.style={draw,ellipse,thick,fill=black!25}}
+\tikzset{radial/.style={very thick,->,>=stealth}}
+\tikzset{transversal/.style={<->,>=stealth,thick,dashed}}
+
+\begin{tikzpicture}[scale=.8]
+ \node[ville] (L) at (0,0) {Lausanne};
+ \node[ville] (N) at (1,2) {Neuchatel};
+ \node[ville] (C) at (8,1) {Coire};
+ \node[ville] (G) at (-1,-1) {Genève};
+ \node[capitale] (B) at (4,2) {Berne};
+ \draw[radial] (B) -- (L);
+ \draw[radial] (B) -- (N);
+ \draw[radial] (B) -- (C);
+ \draw[radial] (B) -- (G);
+ \draw[transversal] (N) -- (L);
+ \draw[transversal] (L) -- (G);
+ \draw[transversal] (G) -- (C);
+\end{tikzpicture}
 
 \end{frame}
   
